@@ -1,0 +1,54 @@
+@model IEnumerable<AppAspNetCore.Models.Role>
+
+@{
+  ViewData["Title"] = "Access Management";
+  Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      @if (Model != null)
+      {
+        foreach (var item in Model)
+        {
+        <tr>
+          <th>@item.RoleId</th>
+          <td>@item.RoleName</td>
+          <td>@item.Description</td>
+          <td>
+            <a 
+              class="btn btn-primary" 
+              asp-area="Admin" 
+              asp-controller="AdminRoles" 
+              asp-action="Details"
+              asp-route-id="@item.RoleId">View</a>
+            <a 
+              class="btn btn-secondary"
+              asp-area="Admin" 
+              asp-controller="AdminRoles" 
+              asp-action="Edit"
+              asp-route-id="@item.RoleId">Edit</a>
+            <a 
+              class="btn btn-success"
+              asp-area="Admin" 
+              asp-controller="AdminRoles" 
+              asp-action="Delete"
+              asp-route-id="@item.RoleId">Delete</a>
+          </td>
+      </tr>
+        }
+      }
+      
+    </tbody>
+  </table>
+</div>
+

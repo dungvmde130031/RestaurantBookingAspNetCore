@@ -1,15 +1,27 @@
+using AppAspNetCore.Areas.Identity.Data;
+using AppAspNetCore.Models;
+using AspNetCoreHero.ToastNotification;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using AppAspNetCore.Areas.Identity.Data;
+// using AppAspNetCore.Areas.Admin.Data;
 var builder = WebApplication.CreateBuilder(args);
+
 var connectionString = builder.Configuration.GetConnectionString("AppAspNetCoreIdentityDbContextConnection") ?? throw new InvalidOperationException("Connection string 'AppAspNetCoreIdentityDbContextConnection' not found.");
 
-builder.Services.AddDbContext<AppAspNetCoreIdentityDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<Resbooking1Context>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AppAspNetCoreIdentityDbContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<Resbooking1Context>();
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+builder.Services.AddNotyf(config => {
+    config.DurationInSeconds = 10;
+    config.IsDismissable = true;
+    config.Position = NotyfPosition.BottomRight;
+});
+
+// builder.Services.AddScoped<IRepository, MemoryRepository>();
 
 var app = builder.Build();
 
