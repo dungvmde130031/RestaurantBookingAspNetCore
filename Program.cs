@@ -16,7 +16,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 builder.Services.AddNotyf(config => {
-    config.DurationInSeconds = 10;
+    config.DurationInSeconds = 3;
     config.IsDismissable = true;
     config.Position = NotyfPosition.BottomRight;
 });

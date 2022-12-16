@@ -1,0 +1,48 @@
+@model AppAspNetCore.Models.Meal
+@{
+  ViewData["Title"] = "Meal Edit";
+  Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item">
+                <i class="anticon anticon-home m-r-5"></i>Home
+            </a>
+            <a asp-area="Admin" asp-controller="AdminAccounts" asp-action="Index" class="breadcrumb-item">
+                Meal Lists
+            </a>
+            <span class="breadcrumb-item active">Meal Edit</span>
+        </nav>
+    </div>
+</div>
+<form asp-action="Edit" asp-route-id="@Model.MealId" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for=MealId>
+    <div class="form-group">
+        <div class="form-group col-md-6">
+            <label>Name</label>
+            <input type="text" class="form-control" asp-for="Name" placeholder="Name">
+        </div>
+        <div class="form-group col-md-6">
+            <label>Description</label>
+            <input type="text" class="form-control" asp-for="Description" placeholder="Description">
+        </div>
+        <div class="form-group col-md-6">
+            <label>Price</label>
+            <input type="text" class="form-control" asp-for="Price" placeholder="Price">
+        </div>
+        <div class="form-group col-md-6">
+            <label>Quantity</label>
+            <input type="text" class="form-control" asp-for="Quantity" placeholder="Quantity">
+        </div>
+        <div class="form-group col-md-6">
+            <label>Discount</label>
+            <input type="text" class="form-control" asp-for="Discount" placeholder="Discount">
+        </div>
+        <div class="form-group col-md-6">
+            <button class="btn btn-primary" type="submit">Save changed</button>
+        </div>
+    </div>
+</form>

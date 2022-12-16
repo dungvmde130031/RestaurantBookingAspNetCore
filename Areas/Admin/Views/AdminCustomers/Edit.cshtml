@@ -1,0 +1,40 @@
+@model AppAspNetCore.Models.Customer
+@{
+    ViewData["Title"] = "Customer Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item">
+                <i class="anticon anticon-home m-r-5"></i>Home
+            </a>
+            <a asp-area="Admin" asp-controller="AdminRoles" asp-action="Index" class="breadcrumb-item">
+                Customer Lists
+            </a>
+            <span class="breadcrumb-item active">Access Edit</span>
+        </nav>
+    </div>
+</div>
+<form asp-action="Edit" asp-route-id="@Model.CustomerId" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for=CustomerId>
+    <div class="form-group">
+        <div class="form-group col-md-6">
+            <label>Full Name</label>
+            <input type="text" class="form-control" asp-for="FullName" placeholder="Full Name">
+        </div>
+        <div class="form-group col-md-6">
+            <label>Email</label>
+            <input type="text" class="form-control" asp-for="Email" placeholder="Email">
+        </div>
+        <div class="form-group col-md-6">
+            <label>Phone</label>
+            <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="Phone">
+        </div>
+        <div class="form-group col-md-6">
+            <button class="btn btn-primary" type="submit">Save changed</button>
+        </div>
+    </div>
+</form>

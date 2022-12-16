@@ -1,0 +1,92 @@
+@model AppAspNetCore.Models.Account
+@{
+  ViewData["Title"] = "Access Information";
+  Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item">
+                <i class="anticon anticon-home m-r-5"></i>Home
+            </a>
+            <a asp-area="Admin" asp-controller="AdminAccounts" asp-action="Index" class="breadcrumb-item">
+                Account Lists
+            </a>
+            <span class="breadcrumb-item active">Account Information</span>
+        </nav>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Account Information</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+                    <tr>
+                        <td>ID</td>
+                        <td class="text-dark front-weight-semibold">@Model.AccountId</td>
+                    </tr>
+                    <tr>
+                        <td>Full Name</td>
+                        <td class="font-weight-bold">@Model.FullName</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>@Model.Email</td>
+                    </tr>
+                    <tr>
+                        <td>Phone</td>
+                        <td>@Model.PhoneNumber</td>
+                    </tr>
+                    <tr>
+                        <td>Role</td>
+                        <td>@Model.Role?.RoleName</td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        @if (Model.IsActive ?? true)
+                            { <td>Active</td> }
+                        else
+                            { <td>Inactive</td> }
+                    </tr>
+                    <tr>
+                        <td>Last Login Time</td>
+                        @if (Model.LastLoginTime != null)
+                            { <td>@Model.LastLoginTime</td> }
+                        else
+                            { <td><i>Not Update</i></td> }
+                    </tr>
+                    <tr>
+                        <td>Created Account Time</td>
+                        @if (Model.CreateTime != null)
+                            { <td>@Model.CreateTime</td> }
+                        else
+                            { <td><i>Not Update</i></td> }
+                    </tr>
+                    <tr>
+                        <td>Created Account By</td>
+                        @if (Model.CreateBy != null)
+                            { <td>@Model.CreateBy</td> }
+                        else
+                            { <td><i>Not Update</i></td> }
+                    </tr>
+                    <tr>
+                        <td>Updated Account Time</td>
+                        @if (Model.UpdateTime != null)
+                            { <td>@Model.UpdateTime</td> }
+                        else
+                            { <td><i>Not Update</i></td> }
+                    </tr>
+                    <tr>
+                        <td>Created Account By</td>
+                        @if (Model.UpdateBy != null)
+                            { <td>@Model.UpdateBy</td> }
+                        else
+                            { <td><i>Not Update</i></td> }
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

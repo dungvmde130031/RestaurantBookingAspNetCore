@@ -1,0 +1,116 @@
+@model IEnumerable<AppAspNetCore.Models.Customer>
+
+@{
+    ViewData["Title"] = "Customer Management";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    <h2 class="header-title">Customer Management</h2>
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <span class="breadcrumb-item active">Customer Lists</span>
+        </nav>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <div class="row m-b-30">
+            <div class="col-lg-8">
+                <div class="d-md-flex">
+                    <div class="m-b-10 m-r-15">
+                        <select class="custom-select" style="min-width: 180px;" id="roleId" name="roleId" asp-items="ViewBag.District">
+                            <option value="0" disabled selected>Choose District</option>
+                        </select>
+                    </div>
+                    <div class="m-b-10">
+                        <select class="custom-select" style="min-width: 180px;" asp-items="ViewBag.Status" id="isActive" name="isActive">
+                            <option value="" disabled selected>Status</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 text-right">
+                <button class="btn btn-primary">
+                    <i class="anticon anticon-plus-circle m-r-5"></i>
+                    <span>Add New Customer</span>
+                </button>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover e-commerce-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>District</th>
+                        <th>Last Login Time</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.CustomerId</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img class="img-fluid rounded" src="~/adminassets/images/others/thumb-9.jpg" style="max-width: 60px" alt="">
+                                        <h6 class="m-b-0 m-l-10">@item.FullName</h6>
+                                    </div>
+                                </td>
+                                <td>@item.Email</td>
+                                <td>@item.Location.Type</td>
+                                <td>@item.LastLoginTime</td>
+                                <td>
+                                    @if (item.IsActive)
+                                    {
+                                        <div class="d-flex align-items-center">
+                                            <div class="badge badge-success badge-dot m-r-10"></div>
+                                            <div>Active</div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div clas s="d-flex align-items-center">
+                                            <div class="badge badge-success badge-dot m-r-10"></div>
+                                            <div>Inactive</div>
+                                        </div>
+                                    }
+                                </td>
+                                <td>
+                                    <a 
+                                        class="btn btn-primary" 
+                                        asp-area="Admin" 
+                                        asp-controller="AdminCustomers" 
+                                        asp-action="Details"
+                                        asp-route-id="@item.CustomerId">View</a>
+                                    <a 
+                                        class="btn btn-secondary"
+                                        asp-area="Admin" 
+                                        asp-controller="AdminCustomers" 
+                                        asp-action="Edit"
+                                        asp-route-id="@item.CustomerId">Edit</a>
+                                    <a 
+                                        class="btn btn-success"
+                                        asp-area="Admin" 
+                                        asp-controller="AdminCustomers" 
+                                        asp-action="Delete"
+                                        asp-route-id="@item.CustomerId">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
