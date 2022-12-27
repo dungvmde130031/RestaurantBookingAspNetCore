@@ -1,0 +1,27 @@
+@model List<Order>
+@if (Model != null && Model.Count > 0)
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <tbody>
+                <tr>
+                    <th>ID</th>
+                    <th>ORDER DATE</th>
+                    <th>STATUS</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><a class="account-order-id" href="javascript:void(0)">#@item.OrderId</a></td>
+                        <td>@item.OrderDate</td>
+                        <td>@item.TransactStatus.Status</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p>Waiting for your order ...</p>
+}

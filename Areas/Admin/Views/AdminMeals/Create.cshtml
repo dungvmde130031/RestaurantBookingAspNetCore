@@ -1,0 +1,105 @@
+@model AppAspNetCore.Models.Meal
+
+@{
+    ViewData["Title"] = "Create New Meal";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    <h2 class="header-title">Create Meal</h2>
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <a asp-area="Admin" asp-controller="AdminMeals" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Meal Lists</a>
+            <span class="breadcrumb-item active">Create New Meal</span>
+        </nav>
+    </div>
+</div>
+<form asp-controller="AdminMeals" asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="page-header no-gutters has-tab">
+        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+            <div class="media align-items-center m-b-15">
+                <div class="m-l-15">
+                    <h4 class="m-b-0">Create New Meal</h4>
+                    <p class="text-muted m-b-0">Have a good day!</p>
+                </div>
+            </div>
+            <div class="m-b-15">
+                <button type="submit" class="btn btn-primary">
+                    <i class="anticon anticon-save"></i>
+                    <span>Save</span>
+                </button>
+            </div>
+        </div>
+        <ul class="nav nav-tabs" >
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Basic Info</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#product-edit-description">Description</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-edit-basic" >
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="mealName">Meal Name</label>
+                        <input type="text" class="form-control" asp-for=Name>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-semibold" for="Price">Price ($)</label>
+                            <input type="text" class="form-control" asp-for="Price">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-semibold" for="Price">Discount (%)</label>
+                            <input type="text" class="form-control" asp-for="Discount">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-semibold" for="mealCategory">Meal Category</label>
+                            <select class="custom-select" id="mealCategory" asp-for="MealCategoryId" asp-items="ViewBag.Category">
+                                <option value="0" disabled selected>Choose Category</option> 
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-semibold" for="Price">Quantity</label>
+                            <input type="number" class="form-control" asp-for="Quantity">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="image">Image</label>
+                        <input type="fTh" type="file" class="form-control" asp-for="Image">
+                    </div>
+                    <div class="row">
+                        <div class="m-t-25">
+                            <div class="form-group d-flex align-items-center">
+                                <div class="switch m-r-10">
+                                    <input type="checkbox" id="Status" name="Status" checked="">
+                                    <label for="Status"></label>
+                                </div>
+                                <label>In Stock</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="product-edit-description">
+            <div class="card">
+                <div class="card-body">
+                    <div id="productDescription">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" asp-for="Description">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

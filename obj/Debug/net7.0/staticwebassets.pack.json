@@ -3125,6 +3125,38 @@
       "PackagePath": "staticwebassets/favicon.ico"
     },
     {
+      "Id": "/Users/vomanh.dung/Documents/Code/C#_Training_MBI/AppAspNetCore/wwwroot/images/meals/banh-234.png",
+      "PackagePath": "staticwebassets/images/meals/banh-234.png"
+    },
+    {
+      "Id": "/Users/vomanh.dung/Documents/Code/C#_Training_MBI/AppAspNetCore/wwwroot/images/meals/banh-mi.png",
+      "PackagePath": "staticwebassets/images/meals/banh-mi.png"
+    },
+    {
+      "Id": "/Users/vomanh.dung/Documents/Code/C#_Training_MBI/AppAspNetCore/wwwroot/images/meals/banh-mii.png",
+      "PackagePath": "staticwebassets/images/meals/banh-mii.png"
+    },
+    {
+      "Id": "/Users/vomanh.dung/Documents/Code/C#_Training_MBI/AppAspNetCore/wwwroot/images/meals/default.jpeg",
+      "PackagePath": "staticwebassets/images/meals/default.jpeg"
+    },
+    {
+      "Id": "/Users/vomanh.dung/Documents/Code/C#_Training_MBI/AppAspNetCore/wwwroot/images/meals/meal-1.jpg",
+      "PackagePath": "staticwebassets/images/meals/meal-1.jpg"
+    },
+    {
+      "Id": "/Users/vomanh.dung/Documents/Code/C#_Training_MBI/AppAspNetCore/wwwroot/images/meals/meal-2.jpg",
+      "PackagePath": "staticwebassets/images/meals/meal-2.jpg"
+    },
+    {
+      "Id": "/Users/vomanh.dung/Documents/Code/C#_Training_MBI/AppAspNetCore/wwwroot/images/meals/meal-2.png",
+      "PackagePath": "staticwebassets/images/meals/meal-2.png"
+    },
+    {
+      "Id": "/Users/vomanh.dung/Documents/Code/C#_Training_MBI/AppAspNetCore/wwwroot/images/meals/nuoc-ngot.png",
+      "PackagePath": "staticwebassets/images/meals/nuoc-ngot.png"
+    },
+    {
       "Id": "/Users/vomanh.dung/Documents/Code/C#_Training_MBI/AppAspNetCore/wwwroot/js/site.js",
       "PackagePath": "staticwebassets/js/site.js"
     },

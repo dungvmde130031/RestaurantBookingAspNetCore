@@ -1,7 +1,7 @@
-@model AppAspNetCore.Models.Role
+@model AppAspNetCore.Models.Meal
 @{
-    ViewData["Title"] = "Confirm to delete the access!";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+  ViewData["Title"] = "Confirm Delete";
+  Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="page-header">
@@ -10,40 +10,81 @@
             <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item">
                 <i class="anticon anticon-home m-r-5"></i>Home
             </a>
-            <a asp-area="Admin" asp-controller="AdminRoles" asp-action="Index" class="breadcrumb-item">
-                Access Lists
+            <a asp-area="Admin" asp-controller="AdminMeals" asp-action="Index" class="breadcrumb-item">
+                Meal Lists
             </a>
-            <span class="breadcrumb-item active">Confirm to delete the access</span>
+            <span class="breadcrumb-item active">Confirm Delete</span>
         </nav>
     </div>
 </div>
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">Confirm to delete the access</h4>
+        <h4 class="card-title">Confirm Delete</h4>
         <div class="table-responsive">
             <table class="product-info-table m-t-20">
                 <tbody>
-                <tr>
-                    <td>ID</td>
-                    <td class="text-dark front-weight-semibold">@Model.RoleId</td>
-                </tr>
-                <tr>
-                    <td>Access Name</td>
-                    <td class="font-weight-bold">@Model.RoleName</td>
-                </tr>
-                <tr>
-                    <td>Description</td>
-                    <td>@Model.Description</td>
-                </tr>
-                <tr>
-                    <td>Confirm Delete</td>
-                    <td>
-                    <form asp-action="Delete" asp-route-id="@Model.RoleId">
-                        <input type="hidden" asp-for="RoleId">
-                        <input type="submit" value="I confirm" class="btn btn-danger">
-                    </form>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>Meal ID</td>
+                        <td class="text-dark front-weight-semibold">@Model.MealId</td>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td class="font-weight-bold">@Model.Name</td>
+                    </tr>
+                    <tr>
+                        <td>Price</td>
+                        <td>@Model.Price</td>
+                    </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td>@Model.Quantity</td>
+                    </tr>
+                    <tr>
+                        <td>Discount</td>
+                        @if (Model.Discount > 0)
+                            { <td>@Model.Discount</td> }
+                        else
+                            { <td><i>Not Discount</i></td> }
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        @if (Model.Status ?? true)
+                            { <td>In Stock</td> }
+                        else
+                            { <td>Out Stock</td> }
+                    </tr>
+                    <tr>
+                        <td>Meal Category</td>
+                        <td>@Model.MealCategory?.Name</td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>@Model.Description</td>
+                    </tr>
+                    <tr>
+                        <td>Create Time</td>
+                        <td>@Model.CreateTime</td>
+                    </tr>
+                    <tr>
+                        <td>Update Time</td>
+                        <td>@Model.UpdateTime</td>
+                    </tr>
+                    <tr>
+                        <td>Image (@Model.Image)</td>
+                        
+                        <td>
+                            <img width="120" height="120" src="~/images/meals/@Model.Image" alt="@Model.Name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Confirm Delete?</td>
+                        <td>
+                            <form asp-controller="AdminMeals" asp-action="Delete" asp-route-id="@Model.MealId">
+                                <input type="hidden" asp-for="MealId" />
+                                <input type="submit" value="DELETE" class="btn btn-danger" />
+                            </form>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

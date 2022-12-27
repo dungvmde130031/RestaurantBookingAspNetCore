@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AppAspNetCore.Models;
 using AspNetCoreHero.ToastNotification.Abstractions;
+using AppAspNetCore.Helper;
 
 namespace AppAspNetCore.Areas.Admin.Controllers
 {
@@ -45,7 +46,7 @@ namespace AppAspNetCore.Areas.Admin.Controllers
         // GET: Admin/AdminMeal/Details/1
         public async Task<IActionResult> Details(int? id)
         {   
-            ViewData["Category"] = new SelectList(_context.MealCategories, "MealCategoryId", "Name");
+            ViewData["Category"] = new SelectList(_context.MealCategories, "MealCategoryId", "Name", "Description");
 
             if (id == null)
             {
@@ -64,18 +65,57 @@ namespace AppAspNetCore.Areas.Admin.Controllers
             return View(meal);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            ViewData["Category"] = new SelectList(_context.MealCategories, "MealCategoryId", "Name");
+            // ViewData["Category"] = new SelectList(_context.MealCategories, "MealCategoryId", "Name");
+
+            // List<SelectListItem> status = new List<SelectListItem>();
+
+            // status.Add(new SelectListItem() { Text = "In of Stock", Value = "1" });
+            // status.Add(new SelectListItem() { Text = "Out of Stock", Value = "0" });
+            // ViewData["Status"] = status;
+
+            // var resbooking1Context = _context.Meals.Include(mc => mc.MealCategory);
+
+            return PartialView("Create");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MealId, Name, Price, Quantity, Discount")] Meal meal)
+        public async Task<IActionResult> Create([Bind("MealId, Name, Price, Discount, Quantity, MealCategoryId, Image, Description")] Meal meal, Microsoft.AspNetCore.Http.IFormFile image)
         {
-            if (ModelState.IsValid)
+
+            ViewData["Category"] = new SelectList(_context.MealCategories, "MealCategoryId", "Name", meal.MealCategoryId);
+            
+            if (meal.MealCategory == null)
             {
+                meal.Name = Utilities.ToTitleCase(meal.Name);
+                if (image != null)
+                {
+                    string extension = Path.GetExtension(image.FileName);
+                    string _image = Utilities.SEOUrl(meal.Name) + extension;
+                    meal.Image = await Utilities.UploadFile(image, @"meals", _image.ToLower());
+                }
+
+                if (string.IsNullOrEmpty(meal.Image)) meal.Image = "default.jpg";
+
+                meal.Status = true;
+                meal.IsFavorite = false;
+                meal.CreateTime = DateTime.Now;
+                meal.CreateBy = "Admin";
+                meal.UpdateTime = DateTime.Now;
+                meal.UpdateBy = "Admin";
+
                 _context.Add(meal);
                 await _context.SaveChangesAsync();
                 _notifyService.Success("Created Successfully!");
 
                 return RedirectToAction(nameof(Index));
             }
+            
+
             return View(meal);
         }
 
@@ -94,52 +134,70 @@ namespace AppAspNetCore.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MealId, Name, Description, Price, Quantity, Discount")] Meal meal)
+        public async Task<IActionResult> Edit(int id, [Bind("MealId, Name, Price, Discount, Quantity, MealCategoryId, Image, Description")] Meal meal, Microsoft.AspNetCore.Http.IFormFile image)
         {
             if (id != meal.MealId)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (meal.MealCategory == null)
             {
                 try
+                {
+                    meal.Name = Utilities.ToTitleCase(meal.Name);
+
+                    if (image != null)
                     {
-                        _context.Update(meal);
-                        await _context.SaveChangesAsync();
-                        _notifyService.Success("Updated Successfully!");
+                        string extension = Path.GetExtension(image.FileName);
+                        string _image = Utilities.SEOUrl(meal.Name) + extension;
+                        meal.Image = await Utilities.UploadFile(image, @"meals", _image.ToLower());
                     }
+
+                    if (string.IsNullOrEmpty(meal.Name)) meal.Image = "default.jpg";
+
+                    if (meal.MealCategoryId != null)
+                    {
+                        meal.MealCategoryId = 1;
+                    }
+
+                    meal.UpdateTime = DateTime.Now;
+
+                    _context.Update(meal);
+                    _notifyService.Success("Updated Successfully!");
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction(nameof(Index));
+                }
                 catch (DbUpdateConcurrencyException)
                 {
                     // TODO
                     if (!MealExists(meal.MealId))
                     {
-                        _notifyService.Success("An error occurred");
+                        _notifyService.Success("This meal deleted or not available!");
                         return NotFound();
                     }
                     else
                     {
+                        _notifyService.Success("An error occurred");
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
+
+            ViewData["Category"] = new SelectList(_context.MealCategories, "MealCategoryId", "Name", meal.MealCategoryId);
             return View(meal);
         }
 
         // GET: Admin/AdminMeals/Delete/1
-        public async Task<IActionResult> Delete(string id) // <-- Here it is
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var meal = await _context.Meals.FirstOrDefaultAsync(m => m.MealId.Equals(id));
-            if (meal == null)
-            {
-                return NotFound();
-            }
+            var meal = await _context.Meals.FindAsync(id);
 
             return View(meal);
         }
@@ -147,12 +205,14 @@ namespace AppAspNetCore.Areas.Admin.Controllers
         // POST: Admin/AdminMeals/Delete/1
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id) // <-- Here it is
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var meal = await _context.Meals.FindAsync(id);
             _context.Meals.Remove(meal);
-            await _context.SaveChangesAsync();
             _notifyService.Success("Deleted Successfully!");
+
+            await _context.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 

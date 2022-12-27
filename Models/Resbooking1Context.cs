@@ -47,119 +47,79 @@ public partial class Resbooking1Context : DbContext
         {
             entity.ToTable("Account");
 
-            entity.Property(e => e.AccountId).ValueGeneratedNever();
+            entity.Property(e => e.CreateBy).HasMaxLength(100);
             entity.Property(e => e.CreateTime).HasColumnType("datetime");
-            entity.Property(e => e.Email)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.FullName)
-                .HasMaxLength(150)
-                .IsUnicode(false);
+            entity.Property(e => e.FullName).HasMaxLength(100);
             entity.Property(e => e.LastLoginTime).HasColumnType("datetime");
-            entity.Property(e => e.Password)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.PhoneNumber)
-                .HasMaxLength(10)
-                .IsUnicode(false);
-            entity.Property(e => e.UpdateBy)
-                .HasMaxLength(150)
-                .IsUnicode(false);
+            entity.Property(e => e.Password).HasMaxLength(36);
+            entity.Property(e => e.PhoneNumber).HasMaxLength(10);
+            entity.Property(e => e.UpdateBy).HasMaxLength(100);
             entity.Property(e => e.UpdateTime).HasColumnType("datetime");
 
             entity.HasOne(d => d.Role).WithMany(p => p.Accounts)
                 .HasForeignKey(d => d.RoleId)
-                .HasConstraintName("FK_Account_Roles");
+                .HasConstraintName("FK_Account_Role");
         });
 
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.Property(e => e.Address)
-                .HasMaxLength(150)
-                .IsUnicode(false);
+            entity.ToTable("Customer");
+
+            entity.Property(e => e.Address).HasMaxLength(100);
             entity.Property(e => e.Birthday).HasColumnType("datetime");
-            entity.Property(e => e.CreateBy)
-                .HasMaxLength(150)
-                .IsUnicode(false);
+            entity.Property(e => e.CreateBy).HasMaxLength(100);
             entity.Property(e => e.CreateTime).HasColumnType("datetime");
-            entity.Property(e => e.District)
-                .HasMaxLength(150)
-                .IsUnicode(false);
-            entity.Property(e => e.Email)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.FullName)
-                .HasMaxLength(150)
-                .IsUnicode(false);
+            entity.Property(e => e.District).HasMaxLength(100);
+            entity.Property(e => e.FullName).HasMaxLength(100);
             entity.Property(e => e.LastLoginTime).HasColumnType("datetime");
-            entity.Property(e => e.Password)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.PhoneNumber)
-                .HasMaxLength(10)
-                .IsUnicode(false);
-            entity.Property(e => e.UpdateBy)
-                .HasMaxLength(150)
-                .IsUnicode(false);
+            entity.Property(e => e.Password).HasMaxLength(36);
+            entity.Property(e => e.PhoneNumber).HasMaxLength(10);
+            entity.Property(e => e.Salt)
+                .HasMaxLength(8)
+                .IsFixedLength();
+            entity.Property(e => e.UpdateBy).HasMaxLength(100);
             entity.Property(e => e.UpdateTime).HasColumnType("datetime");
-            entity.Property(e => e.Ward)
-                .HasMaxLength(150)
-                .IsUnicode(false);
+            entity.Property(e => e.Ward).HasMaxLength(100);
 
             entity.HasOne(d => d.Location).WithMany(p => p.Customers)
                 .HasForeignKey(d => d.LocationId)
-                .HasConstraintName("FK_Customers_Locations");
+                .HasConstraintName("FK_Customer_Location");
         });
 
         modelBuilder.Entity<Location>(entity =>
         {
-            entity.Property(e => e.Name)
-                .HasMaxLength(150)
-                .IsUnicode(false);
-            entity.Property(e => e.Type)
-                .HasMaxLength(20)
-                .IsUnicode(false);
+            entity.ToTable("Location");
+
+            entity.Property(e => e.Name).HasMaxLength(50);
+            entity.Property(e => e.Type).HasMaxLength(100);
         });
 
         modelBuilder.Entity<Meal>(entity =>
         {
-            entity.Property(e => e.CreateBy)
-                .HasMaxLength(150)
-                .IsUnicode(false);
+            entity.ToTable("Meal");
+
+            entity.Property(e => e.CreateBy).HasMaxLength(100);
             entity.Property(e => e.CreateTime).HasColumnType("datetime");
-            entity.Property(e => e.Description).IsUnicode(false);
-            entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.UpdateBy)
-                .HasMaxLength(150)
-                .IsUnicode(false);
+            entity.Property(e => e.Description).HasMaxLength(100);
+            entity.Property(e => e.Name).HasMaxLength(50);
+            entity.Property(e => e.UpdateBy).HasMaxLength(100);
             entity.Property(e => e.UpdateTime).HasColumnType("datetime");
 
             entity.HasOne(d => d.MealCategory).WithMany(p => p.Meals)
                 .HasForeignKey(d => d.MealCategoryId)
-                .HasConstraintName("FK_Meals_MealCategory");
+                .HasConstraintName("FK_Meal_MealCategory");
         });
 
         modelBuilder.Entity<MealCategory>(entity =>
         {
             entity.ToTable("MealCategory");
 
-            entity.Property(e => e.CreateBy)
-                .HasMaxLength(150)
-                .IsUnicode(false);
+            entity.Property(e => e.CreateBy).HasMaxLength(100);
             entity.Property(e => e.CreateTime).HasColumnType("datetime");
-            entity.Property(e => e.Description).IsUnicode(false);
-            entity.Property(e => e.Image).IsUnicode(false);
-            entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.Title)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.UpdateBy)
-                .HasMaxLength(150)
-                .IsUnicode(false);
+            entity.Property(e => e.Description).HasMaxLength(100);
+            entity.Property(e => e.Name).HasMaxLength(50);
+            entity.Property(e => e.Title).HasMaxLength(50);
+            entity.Property(e => e.UpdateBy).HasMaxLength(100);
             entity.Property(e => e.UpdateTime).HasColumnType("datetime");
         });
 
@@ -172,11 +132,11 @@ public partial class Resbooking1Context : DbContext
 
             entity.HasOne(d => d.Customer).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.CustomerId)
-                .HasConstraintName("FK_Order_Customers");
+                .HasConstraintName("FK_Order_Customer");
 
             entity.HasOne(d => d.Meal).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.MealId)
-                .HasConstraintName("FK_Order_Meals");
+                .HasConstraintName("FK_Order_Meal");
 
             entity.HasOne(d => d.Table).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.TableId)
@@ -189,28 +149,33 @@ public partial class Resbooking1Context : DbContext
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
+            entity.ToTable("OrderDetail");
+
             entity.HasOne(d => d.Meal).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.MealId)
-                .HasConstraintName("FK_OrderDetails_Meals");
+                .HasConstraintName("FK_OrderDetail_Meal");
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.OrderId)
-                .HasConstraintName("FK_OrderDetails_Order");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_OrderDetail_Order");
         });
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.Property(e => e.Description)
-                .HasMaxLength(150)
-                .IsUnicode(false);
-            entity.Property(e => e.RoleName)
-                .HasMaxLength(50)
-                .IsUnicode(false);
+            entity.ToTable("Role");
+
+            entity.Property(e => e.RoleId).HasColumnName("Role_Id");
+            entity.Property(e => e.Description).HasMaxLength(100);
+            entity.Property(e => e.RoleName).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Table>(entity =>
         {
             entity.ToTable("Table");
+
+            entity.Property(e => e.Description).IsUnicode(false);
+            entity.Property(e => e.Name).HasMaxLength(50);
 
             entity.HasOne(d => d.TableType).WithMany(p => p.Tables)
                 .HasForeignKey(d => d.TableTypeId)
@@ -222,7 +187,6 @@ public partial class Resbooking1Context : DbContext
         {
             entity.ToTable("TableType");
 
-            entity.Property(e => e.Description).IsUnicode(false);
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -231,11 +195,6 @@ public partial class Resbooking1Context : DbContext
         modelBuilder.Entity<TransactStatus>(entity =>
         {
             entity.ToTable("TransactStatus");
-
-            entity.Property(e => e.Description).IsUnicode(false);
-            entity.Property(e => e.Status)
-                .HasMaxLength(50)
-                .IsUnicode(false);
         });
 
         OnModelCreatingPartial(modelBuilder);

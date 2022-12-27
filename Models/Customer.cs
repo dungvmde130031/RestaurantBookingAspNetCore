@@ -17,6 +17,8 @@ public partial class Customer
 
     public string? Password { get; set; }
 
+    public string? Salt { get; set; }
+
     public DateTime? Birthday { get; set; }
 
     public string? Address { get; set; }
@@ -25,7 +27,7 @@ public partial class Customer
 
     public string? Ward { get; set; }
 
-    public bool IsActive { get; set; }
+    public bool? IsActive { get; set; }
 
     public DateTime? LastLoginTime { get; set; }
 

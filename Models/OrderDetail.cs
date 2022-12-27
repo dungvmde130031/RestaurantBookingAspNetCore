@@ -7,7 +7,7 @@ public partial class OrderDetail
 {
     public int OrderDetailId { get; set; }
 
-    public int? OrderId { get; set; }
+    public int OrderId { get; set; }
 
     public int? MealId { get; set; }
 
@@ -21,5 +21,5 @@ public partial class OrderDetail
 
     public virtual Meal? Meal { get; set; }
 
-    public virtual Order? Order { get; set; }
+    public virtual Order Order { get; set; } = null!;
 }

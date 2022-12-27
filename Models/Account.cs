@@ -7,13 +7,15 @@ public partial class Account
 {
     public int AccountId { get; set; }
 
+    public int? RoleId { get; set; }
+
+    public string FullName { get; set; } = null!;
+
     public string? PhoneNumber { get; set; }
 
-    public string? Email { get; set; }
+    public string Email { get; set; } = null!;
 
     public string? Password { get; set; }
-
-    public string? FullName { get; set; }
 
     public bool? IsActive { get; set; }
 
@@ -21,13 +23,11 @@ public partial class Account
 
     public DateTime? CreateTime { get; set; }
 
-    public int? CreateBy { get; set; }
+    public string? CreateBy { get; set; }
 
     public DateTime? UpdateTime { get; set; }
 
     public string? UpdateBy { get; set; }
-
-    public int? RoleId { get; set; }
 
     public virtual Role? Role { get; set; }
 }

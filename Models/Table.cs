@@ -11,9 +11,9 @@ public partial class Table
 
     public int? TableNumber { get; set; }
 
-    public int? Name { get; set; }
+    public string Name { get; set; } = null!;
 
-    public int? Description { get; set; }
+    public string? Description { get; set; }
 
     public bool? Status { get; set; }
 

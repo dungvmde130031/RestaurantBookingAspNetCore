@@ -68,7 +68,7 @@
                                 <td>@item.Location.Type</td>
                                 <td>@item.LastLoginTime</td>
                                 <td>
-                                    @if (item.IsActive)
+                                    @if (item.IsActive ?? true)
                                     {
                                         <div class="d-flex align-items-center">
                                             <div class="badge badge-success badge-dot m-r-10"></div>

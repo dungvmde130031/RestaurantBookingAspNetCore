@@ -41,7 +41,7 @@
                     </tr>
                     <tr>
                         <td>Status</td>
-                        @if (Model.IsActive)
+                        @if (Model.IsActive ?? true)
                             { <td>Active</td> }
                         else
                             { <td>Inactive</td> }

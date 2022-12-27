@@ -1,0 +1,66 @@
+@model AppAspNetCore.Models.MealCategory
+@{
+  ViewData["Title"] = "Confirm Delete";
+  Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item">
+                <i class="anticon anticon-home m-r-5"></i>Home
+            </a>
+            <a asp-area="Admin" asp-controller="AdminMeals" asp-action="Index" class="breadcrumb-item">
+                Meal Lists
+            </a>
+            <span class="breadcrumb-item active">Confirm Delete</span>
+        </nav>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Confirm Delete</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+                    <tr>
+                        <td>Meal Category ID</td>
+                        <td class="text-dark front-weight-semibold">@Model.MealCategoryId</td>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td class="font-weight-bold">@Model.Name</td>
+                    </tr>
+                    <tr>
+                        <td>Title</td>
+                        <td>@Model.Title</td>
+                    </tr>
+                    <tr>
+                        <td>Create Time</td>
+                        <td>@Model.CreateTime</td>
+                    </tr>
+                    <tr>
+                        <td>Update Time</td>
+                        <td>@Model.UpdateTime</td>
+                    </tr>
+                    <tr>
+                        <td>Image (@Model.Image)</td>
+                        
+                        <td>
+                            <img width="120" height="120" src="~/images/meals/@Model.Image" alt="@Model.Name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Confirm Delete?</td>
+                        <td>
+                            <form asp-controller="AdminMeals" asp-action="Delete" asp-route-id="@Model.MealCategoryId">
+                                <input type="hidden" asp-for="MealCategoryId" />
+                                <input type="submit" value="DELETE" class="btn btn-danger" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
